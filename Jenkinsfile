@@ -30,6 +30,7 @@ pipeline {
             parallel {
                 stage('Deploy to Staging'){
                     steps {
+                        sh "chmod 600 tomcat-staging.pem"
                         sh "scp -i tomcat-staging.pem **/target/*.war ec2-user@${params.tomcat_staging}:/var/lib/tomcat8/webapps"
                     }
                     post {
@@ -40,6 +41,7 @@ pipeline {
                 }
                 stage('Deploy to Production'){
                     steps {
+                        sh "chmod 600 tomcat-production.pem"
                         sh "scp -i tomcat-production.pem **/target/*.war ec2-user@${params.tomcat_production}:/var/lib/tomcat8/webapps"
                     }
                     post {
