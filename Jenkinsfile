@@ -29,7 +29,9 @@ pipeline {
                         sh "scp -i tomcat-staging.pem ec2-user@${params.tomcat_staging}:/var/lib/webapps"
                     }
                     post {
-                        echo "Deployed to Staging"
+                        success {
+                            echo "Deployed to Staging"
+                        }
                     }
                 }
                 stage('Deploy to Production'){
@@ -37,7 +39,9 @@ pipeline {
                         sh "scp -i tomcat-production.pem ec2-user@${params.tomcat_production}:/var/lib/webapps"
                     }
                     post {
-                        echo "Deployed to Production"
+                        success {
+                            echo "Deployed to Production"
+                        }
                     }
                 }
             }
