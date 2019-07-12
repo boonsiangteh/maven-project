@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'localMaven'
+    }
+    
     parameters {
         string(name: 'tomcat_staging', defaultValue: '3.1.202.148', description: 'ip address for tomcat staging')
         string(name: 'tomcat_production', defaultValue: '18.139.3.155', description: 'ip address for tomcat production')
