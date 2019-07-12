@@ -30,7 +30,7 @@ pipeline {
             parallel {
                 stage('Deploy to Staging'){
                     steps {
-                        sh "scp -i tomcat-staging.pem ec2-user@${params.tomcat_staging}:/var/lib/tomcat8/webapps"
+                        sh "scp -i tomcat-staging.pem **/target/*.war ec2-user@${params.tomcat_staging}:/var/lib/tomcat8/webapps"
                     }
                     post {
                         success {
@@ -40,7 +40,7 @@ pipeline {
                 }
                 stage('Deploy to Production'){
                     steps {
-                        sh "scp -i tomcat-production.pem ec2-user@${params.tomcat_production}:/var/lib/tomcat8/webapps"
+                        sh "scp -i tomcat-production.pem **/target/*.war ec2-user@${params.tomcat_production}:/var/lib/tomcat8/webapps"
                     }
                     post {
                         success {
