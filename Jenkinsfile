@@ -4,7 +4,7 @@ pipeline {
     tools {
         maven 'localMaven'
     }
-    
+
     parameters {
         string(name: 'tomcat_staging', defaultValue: '3.1.202.148', description: 'ip address for tomcat staging')
         string(name: 'tomcat_production', defaultValue: '18.139.3.155', description: 'ip address for tomcat production')
@@ -30,7 +30,7 @@ pipeline {
             parallel {
                 stage('Deploy to Staging'){
                     steps {
-                        sh "scp -i tomcat-staging.pem ec2-user@${params.tomcat_staging}:/var/lib/webapps"
+                        sh "scp -i tomcat-staging.pem ec2-user@${params.tomcat_staging}:/var/lib/tomcat8/webapps"
                     }
                     post {
                         success {
@@ -40,7 +40,7 @@ pipeline {
                 }
                 stage('Deploy to Production'){
                     steps {
-                        sh "scp -i tomcat-production.pem ec2-user@${params.tomcat_production}:/var/lib/webapps"
+                        sh "scp -i tomcat-production.pem ec2-user@${params.tomcat_production}:/var/lib/tomcat8/webapps"
                     }
                     post {
                         success {
